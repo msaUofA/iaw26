@@ -49,6 +49,50 @@
       50% { opacity: 0.8; }
     }
 
+    .logo-container {
+      position: relative;
+      z-index: 10;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 2rem;
+      animation: fadeInScale 1s ease-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(181, 166, 116, 0.4) 0%, transparent 70%);
+      filter: blur(30px);
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { 
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% { 
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    }
+
+    .logo-container img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 20px rgba(181, 166, 116, 0.6));
+    }
+
     .banner-container {
       position: relative;
       z-index: 10;
@@ -316,11 +360,24 @@
       .banner-container {
         margin-bottom: 2rem;
       }
+      .logo-container {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 1.5rem;
+      }
+      .logo-container::before {
+        width: 180px;
+        height: 180px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="hero">
+    <div class="logo-container">
+      <img src="MSA_logo.png" alt="Muslim Students' Association Logo" id="msaLogo">
+    </div>
+    
     <div class="banner-container">
       <img src="Palestine Awareness Week Banner Fall 2025.png" alt="Palestine Week Banner" id="bannerImage">
     </div>
