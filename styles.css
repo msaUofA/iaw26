@@ -350,3 +350,12 @@ body {
   }
 }
 
+/* Subtle moving dots overlay (sits above sections, but ignores clicks) */
+#dots-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 5;           /* higher than hero */
+  pointer-events: none; /* don't block clicks */
+  mix-blend-mode: screen; /* soft additive look on dark bg */
+  opacity: 0.5;         /* keep it subtle; tweak 0.35–0.6 */
+}
