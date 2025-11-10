@@ -353,21 +353,20 @@ body {
 .event-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* space between top and bottom sections */
-  height: 100%; /* ensures all cards equal height in grid */
+  justify-content: space-between; 
+  height: 100%; 
 }
 
 .event-description:last-child {
-  margin-top: auto; /* pushes the button paragraph to the bottom */
+  margin-top: auto;
 }
 
 
-/* Subtle moving dots overlay (sits above sections, but ignores clicks) */
 #dots-bg {
   position: fixed;
   inset: 0;
-  z-index: 5;           /* higher than hero */
-  pointer-events: none; /* don't block clicks */
-  mix-blend-mode: screen; /* soft additive look on dark bg */
-  opacity: 0.5;         /* keep it subtle; tweak 0.35–0.6 */
+  z-index: 5;           
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.5;        
 }
