@@ -350,6 +350,18 @@ body {
   }
 }
 
+.event-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* space between top and bottom sections */
+  height: 100%; /* ensures all cards equal height in grid */
+}
+
+.event-description:last-child {
+  margin-top: auto; /* pushes the button paragraph to the bottom */
+}
+
+
 /* Subtle moving dots overlay (sits above sections, but ignores clicks) */
 #dots-bg {
   position: fixed;
