@@ -727,3 +727,42 @@ body {
   }
 }
 
+/* Donation */
+.donation-section {
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(0, 122, 61, 0.3));
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Leaderboard Embed */
+.leaderboard-container {
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-container iframe {
+  display: block;
+  width: 100%;
+  min-height: 600px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .leaderboard-container {
+    margin-top: 2rem;
+  }
+  
+  .leaderboard-container iframe {
+    min-height: 500px;
+  }
+}
