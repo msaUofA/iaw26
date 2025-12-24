@@ -1,3 +1,16 @@
+/* styles.css */
+
+/* --- OCEAN THEME VARIABLES --- */
+:root {
+  --deep-ocean: #001219;
+  --mid-ocean: #005f73;
+  --shallow-water: #0a9396;
+  --foam: #e0fbfc;
+  --sand: #e9d8a6;
+  --text-main: #ffffff;
+  --text-muted: #b0c4de;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,125 +19,162 @@
 
 body {
   font-family: 'Georgia', serif;
-  background: #10090a;
-  color: #ffffff;
+  background: var(--deep-ocean);
+  color: var(--text-main);
   overflow-x: hidden;
 }
 
-/* Logo in top right */
+/* --- LOGO --- */
 .msa-logo {
   position: fixed;
-  /* top: 2rem; */
   left: 2rem;
+  top: 1rem; /* Added top for consistency */
   width: 150px;
   height: auto;
   z-index: 1000;
-  filter: drop-shadow(0 0 20px rgba(181, 166, 124, 0.6))
-          drop-shadow(0 0 40px rgba(181, 166, 124, 0.4))
-          drop-shadow(0 0 60px rgba(181, 166, 124, 0.2));
+  /* Blue/Teal Glow */
+  filter: drop-shadow(0 0 20px rgba(10, 147, 150, 0.6));
   transition: all 0.3s ease;
 }
 
 .msa-logo:hover {
-  filter: drop-shadow(0 0 25px rgba(181, 166, 124, 0.8))
-          drop-shadow(0 0 50px rgba(181, 166, 124, 0.6))
-          drop-shadow(0 0 80px rgba(181, 166, 124, 0.3));
+  filter: drop-shadow(0 0 25px rgba(10, 147, 150, 0.8))
+          drop-shadow(0 0 50px rgba(224, 251, 252, 0.6));
   transform: scale(1.05);
 }
 
-/* Hero with Banner */
+/* --- HERO SECTION --- */
 .hero {
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
-  background: linear-gradient(180deg, #1a0000 0%, #0a0a0a 100%);
-  padding: 2rem;
+  /* Deep underwater gradient */
+  background: linear-gradient(180deg, #022026 0%, #001219 100%);
+  padding: clamp(2rem, 4vw, 3rem) 1rem;
   overflow: hidden;
 }
 
+/* Underwater Caustics (Sun rays) Effect */
 .hero::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(206, 17, 38, 0.15) 0%, transparent 50%),
-    /* radial-gradient(circle at 80% 50%, rgba(0, 122, 61, 0.15) 0%, transparent 50%); */
-  animation: pulse 8s ease-in-out infinite;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 150px;
-  background: linear-gradient(180deg, transparent,#10090a);
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(10, 147, 150, 0.15), transparent 60%);
+  animation: pulseLight 8s ease-in-out infinite;
   pointer-events: none;
 }
 
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0.8; }
+@keyframes pulseLight {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
 }
 
+/* --- WAVE ANIMATION --- */
+.ocean-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15vh;
+  margin-bottom: -1px; /* Prevents tiny gap at bottom */
+  min-height: 100px;
+  max-height: 150px;
+  z-index: 5;
+}
+
+/* Wave Parallax Animation */
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+  fill: rgba(224, 251, 252, 0.7); /* Foam */
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+  fill: rgba(10, 147, 150, 0.5); /* Mid water */
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+  fill: rgba(0, 95, 115, 0.3); /* Deep water */
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+  fill: var(--deep-ocean); /* Seamless transition to body bg */
+}
+
+@keyframes move-forever {
+  0% { transform: translate3d(-90px,0,0); }
+  100% { transform: translate3d(85px,0,0); }
+}
+
+/* --- BANNER --- */
 .banner-container {
   position: relative;
   z-index: 10;
-  width: 100%;
-  max-width: 1400px;
-  margin-bottom: 3rem;
+  width: min(100%, 1200px);
+  aspect-ratio: 21 / 9;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  box-shadow: 
+    0 20px 60px rgba(0, 95, 115, 0.4),
+    0 0 80px rgba(10, 147, 150, 0.2);
+  overflow: hidden;
   animation: fadeInScale 1.2s ease-out;
-}
-
-@keyframes fadeInScale {
-  from { 
-    opacity: 0; 
-    transform: scale(0.95) translateY(20px);
-  }
-  to { 
-    opacity: 1; 
-    transform: scale(1) translateY(0);
-  }
 }
 
 .banner-container img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  border-radius: 12px;
-  box-shadow: 
-    0 20px 60px rgba(206, 17, 38, 0.3),
-    0 0 80px rgba(0, 122, 61, 0.2);
 }
 
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- TYPOGRAPHY --- */
 .hero-subtitle {
   position: relative;
   z-index: 10;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   opacity: 0;
   animation: fadeIn 1s ease-out 0.6s forwards;
-  color: #e0e0e0;
+  color: var(--foam);
+  font-style: italic;
   max-width: 800px;
   line-height: 1.6;
+  text-shadow: 0 0 15px rgba(10, 147, 150, 0.6);
 }
 
-@keyframes fadeIn { 
-  to { opacity: 1; } 
+.tagline-sub {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-top: 0.5rem;
+  animation-delay: 1s;
 }
 
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* --- SCROLL INDICATOR --- */
 .scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: clamp(1rem, 18vh, 4rem); /* Moved up slightly to sit above waves */
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -133,21 +183,14 @@ body {
   z-index: 10;
 }
 
-@keyframes fadeInBounce {
-  to { 
-    opacity: 0.7;
-  }
-}
-
-.scroll-indicator:hover {
-  opacity: 1;
-}
+@keyframes fadeInBounce { to { opacity: 0.8; } }
 
 .scroll-indicator span {
   font-size: 2.5rem;
-  color: #CE1126;
+  color: var(--foam);
   animation: bounce 2s infinite;
   display: block;
+  text-shadow: 0 0 10px rgba(10, 147, 150, 0.8);
 }
 
 @keyframes bounce {
@@ -155,19 +198,20 @@ body {
   50% { transform: translateY(10px); }
 }
 
-/* Sections */
+/* --- SECTIONS --- */
 .section {
-  padding: 5rem 2rem;
-  max-width: 1200px;
+  padding: clamp(2.5rem, 4vw + 1rem, 5rem) clamp(1rem, 3vw, 2rem);
+  max-width: min(1100px, 92vw);
   margin: 0 auto;
 }
 
 .section-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 2.6vw, 3rem);
   margin-bottom: 3rem;
   text-align: center;
   position: relative;
   padding-bottom: 1rem;
+  color: var(--foam);
 }
 
 .section-title::after {
@@ -178,11 +222,11 @@ body {
   transform: translateX(-50%);
   width: 100px;
   height: 4px;
-  background: linear-gradient(90deg, #CE1126, #007A3D);
+  background: linear-gradient(90deg, var(--mid-ocean), var(--shallow-water));
   border-radius: 2px;
 }
 
-/* Event cards grid */
+/* --- EVENT CARDS (Glassmorphism) --- */
 .event-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -191,37 +235,43 @@ body {
 }
 
 .event-card {
-  background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(0, 122, 61, 0.2));
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(0, 95, 115, 0.25), rgba(10, 147, 150, 0.1));
+  border: 1px solid rgba(224, 251, 252, 0.1);
   border-radius: 15px;
   padding: 2rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .event-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(206, 17, 38, 0.4);
-  border-color: rgba(206, 17, 38, 0.6);
+  box-shadow: 0 10px 40px rgba(10, 147, 150, 0.25);
+  border-color: rgba(224, 251, 252, 0.3);
 }
 
 .event-date {
   font-size: 0.95rem;
-  color: #CE1126;
+  color: var(--shallow-water);
   font-weight: bold;
   margin-bottom: 0.5rem;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .event-title {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  color: #ffffff;
+  color: var(--foam);
 }
 
 .event-time {
   font-size: 0.9rem;
-  color: #cccccc;
+  color: var(--text-muted);
   margin-bottom: 1rem;
 }
 
@@ -231,73 +281,13 @@ body {
   color: #e0e0e0;
 }
 
-/* Instagram grid */
-.instagram-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+.event-description:last-child {
+  margin-top: auto;
 }
 
-.instagram-embed {
-  background: rgba(139, 0, 0, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 1.5rem;
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.instagram-embed:hover {
-  transform: scale(1.05);
-  border-color: rgba(206, 17, 38, 0.5);
-}
-
-.instagram-placeholder {
-  width: 100%;
-  height: 300px;
-  background: linear-gradient(135deg, #8B0000, #007A3D);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  text-align: center;
-  padding: 1rem;
-}
-
-/* Donation */
-.donation-section {
-  background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(0, 122, 61, 0.3));
-  border-radius: 20px;
-  padding: 4rem 2rem;
-  text-align: center;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.donation-copy {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.6;
-}
-
-.donation-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
+/* --- BUTTONS --- */
 .donation-btn {
-  background: linear-gradient(135deg, #CE1126, #8B0000);
+  background: linear-gradient(135deg, var(--mid-ocean), #023e8a);
   color: white;
   padding: 1.5rem 3rem;
   border: none;
@@ -308,461 +298,110 @@ body {
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0 5px 15px rgba(206, 17, 38, 0.3);
+  box-shadow: 0 5px 15px rgba(2, 62, 138, 0.3);
 }
 
 .donation-btn:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(206, 17, 38, 0.5);
-  background: linear-gradient(135deg, #ff1744, #CE1126);
+  box-shadow: 0 10px 25px rgba(2, 62, 138, 0.5);
+  background: linear-gradient(135deg, #023e8a, var(--mid-ocean));
 }
 
 .donation-btn.secondary {
-  background: linear-gradient(135deg, #007A3D, #005028);
-  box-shadow: 0 5px 15px rgba(0, 122, 61, 0.3);
+  background: linear-gradient(135deg, var(--shallow-water), var(--mid-ocean));
+  padding: 0.8rem 1.5rem; /* Smaller for cards */
+  font-size: 1rem;
+  box-shadow: 0 5px 15px rgba(10, 147, 150, 0.2);
 }
 
 .donation-btn.secondary:hover {
-  background: linear-gradient(135deg, #00a854, #007A3D);
-  box-shadow: 0 10px 25px rgba(0, 122, 61, 0.5);
+  background: linear-gradient(135deg, var(--mid-ocean), var(--shallow-water));
+  box-shadow: 0 10px 25px rgba(10, 147, 150, 0.4);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .msa-logo {
-    width: 80px;
-    top: 1rem;
-    right: 1rem;
-  }
-  
-  .section-title { 
-    font-size: 2rem; 
-  }
-  .hero-subtitle {
-    font-size: 1.2rem;
-    padding: 0 1rem;
-  }
-  .event-grid, .instagram-grid { 
-    grid-template-columns: 1fr; 
-  }
-  .banner-container {
-    margin-bottom: 2rem;
-  }
+/* --- DONATION SECTION --- */
+.donation-section {
+  background: linear-gradient(135deg, rgba(0, 95, 115, 0.2), rgba(2, 62, 138, 0.2));
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  text-align: center;
+  border: 1px solid rgba(224, 251, 252, 0.1);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
 }
 
-.event-card {
+.donation-copy {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.donation-buttons {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between; 
-  height: 100%; 
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
 }
 
-.event-description:last-child {
-  margin-top: auto;
-}
-
-
-#dots-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 5;           
-  pointer-events: none;
-  mix-blend-mode: screen;
-  opacity: 0.5;        
-}
-
-
-/* === Fix banner bars, keep arrow pinned, smooth laptop scale === */
-
-/* Banner: fill container, crop edges, no black bars */
-.banner-container {
-  position: relative;
-  z-index: 10;
-  width: min(100%, 1200px);
-  aspect-ratio: 21 / 9;          /* adjust if your artwork uses a different ratio */
-  margin-bottom: 3rem;
-  border-radius: 12px;
-  overflow: hidden;               /* hide cropped edges */
-  box-shadow:
-    0 20px 60px rgba(206, 17, 38, 0.3),
-    0 0 80px rgba(0, 122, 61, 0.2);
-}
-
-.banner-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;              /* fills frame, no letterboxing */
-  display: block;
-}
-
-/* Make hero reliably fill the viewport and keep the arrow at the bottom */
-.hero {
-  min-height: 100svh;             /* more reliable than 100vh on laptops/mobiles */
-  padding: clamp(2rem, 4vw, 3rem) 1rem;
-  position: relative;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: clamp(1rem, 2.5vh, 2rem);
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Sections: fluid rhythm at laptop sizes */
-.section {
-  padding: clamp(2.5rem, 4vw + 1rem, 5rem) clamp(1rem, 3vw, 2rem);
-  max-width: min(1100px, 92vw);
-}
-
-/* Event grid & typography tuning between 1024–1366px */
-@media (max-width: 1366px) {
-  .hero { min-height: 92svh; }    /* tiny nudge so subtitle/arrow feel balanced */
-
-  .event-grid {
-    gap: clamp(1rem, 2.2vw, 2rem);
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  }
-  .event-card {
-    padding: clamp(1.25rem, 2.2vw, 2rem);
-  }
-  .section-title {
-    font-size: clamp(1.8rem, 2.6vw, 3rem);
-  }
-  .hero-subtitle {
-    font-size: clamp(1rem, 1.4vw + 0.8rem, 1.4rem);
-    max-width: min(760px, 88vw);
-  }
-}
-
-/* Mobile stays comfortable */
-@media (max-width: 768px) {
-  .hero { min-height: 70svh; }
-  .banner-container { margin-bottom: 2rem; }
-  .hero-subtitle {
-    font-size: 1.1rem;
-    max-width: 90%;
-    line-height: 1.4;
-  }
-}
-
-
-/* ==== Laptop scale tuning (makes 100% look like your 90%) ==== */
-/* Applies between ~1200–1600px, i.e., common 13–15" laptops */
-@media (min-width: 1200px) and (max-width: 1600px) {
-  /* Slight global downscale of typography & spacing */
-  html { font-size: 93%; } /* ~90–92% look without browser zoom */
-
-  /* Hero: still full screen, but a touch shorter */
-  .hero {
-    min-height: 92svh; /* your base was 100vh earlier */
-    padding: clamp(1.5rem, 3.2vw, 2.5rem) 1rem;
-  }
-
-  /* Banner: cap visual height so it doesn’t dominate */
-  .banner-container {
-    width: min(100%, 1120px);      /* down from 1200px cap */
-    aspect-ratio: 21 / 9;
-    margin-bottom: 2.25rem;
-  }
-  .banner-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;             /* prevents bars while cropping elegantly */
-    display: block;
-  }
-
-  /* Subtitle: slightly smaller and narrower */
-  .hero-subtitle {
-    font-size: clamp(1rem, 1.1rem + 0.2vw, 1.25rem);
-    max-width: min(700px, 84vw);
-    line-height: 1.5;
-  }
-
-  /* Section rhythm & container width */
-  .section {
-    padding: clamp(2.25rem, 3.2vw + 0.5rem, 3.75rem) clamp(1rem, 2vw, 1.5rem);
-    max-width: min(1050px, 90vw);  /* slightly narrower than your 1200px */
-  }
-
-  /* Event grid density */
-  .event-grid {
-    gap: clamp(1rem, 1.8vw, 1.75rem);
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  }
-  .event-card {
-    padding: clamp(1rem, 1.8vw, 1.5rem);
-  }
-
-  /* Section titles scale down a touch */
-  .section-title {
-    font-size: clamp(1.7rem, 2.2vw, 2.4rem);
-    margin-bottom: 2.25rem;
-  }
-
-  /* Keep arrow visually at the bottom */
-  .scroll-indicator { bottom: clamp(0.75rem, 2vh, 1.5rem); }
-
-  /* Logo a bit smaller at this band so it doesn't crowd */
-  .msa-logo { width: 120px; }
-}
-
-/* Small refinement just below 1200px to keep balance before mobile rules kick in */
-@media (max-width: 1199px) and (min-width: 992px) {
-  html { font-size: 94%; }
-  .hero { min-height: 94svh; }
-  .banner-container { width: min(100%, 1080px); }
-}
-
-
-/* mobile */
-
-/* ===== Mobile polish (≤768px) ===== */
-@media (max-width: 768px) {
-  /* Root scale & readable line-length */
-  html { font-size: 96%; }
-
-  /* Logo: smaller & out of the way */
-  .msa-logo { 
-    width: 76px; 
-    left: 1rem;       /* matches your fixed logo positioning :contentReference[oaicite:0]{index=0} */
-    top: 1rem;
-    z-index: 20;
-  }
-
-  /* Hero: compact but still immersive */
-  .hero { 
-    min-height: 82svh;  /* instead of full 100vh so subtitle doesn’t push off-screen */
-    padding: 1.25rem 1rem 2rem;
-  }
-
-  /* Banner: stable ratio & safe cropping on narrow screens */
-  .banner-container {
-    width: 100%;
-    aspect-ratio: 16 / 9;  /* many phones are narrow—16:9 reads better than 21:9 */
-    margin-bottom: 1.25rem;
-    border-radius: 10px;
-  }
-  .banner-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;   /* avoid bars while keeping the design bold */
-    display: block;
-  }
-
-  /* Subtitle: comfy reading width */
-  .hero-subtitle {
-    font-size: 1rem;
-    max-width: 92%;
-    line-height: 1.5;
-    margin-top: 1rem;
-  }
-
-  /* Keep the arrow pinned at bottom */
-  .scroll-indicator { bottom: 1rem; }
-
-  /* Section rhythm */
-  .section {
-    padding: 2rem 1rem;
-    max-width: 100%;
-  }
-
-  .section-title {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-  }
-
-  /* Cards stack cleanly (you already use auto-fit grid) :contentReference[oaicite:1]{index=1} */
-  .event-grid { 
-    grid-template-columns: 1fr; 
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .event-card {
-    padding: 1.1rem;
-    border-radius: 12px;
-  }
-
-  .event-title { font-size: 1.25rem; }
-  .event-time  { font-size: 0.95rem; }
-  .event-description { font-size: 0.98rem; }
-
-  /* Buttons: bigger tap targets */
-  .donation-btn {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 40px;
-    display: inline-block;
-    text-align: center;
-  }
-  .donation-buttons { gap: 0.9rem; }
-
-  /* Instagram embeds: single column with comfy padding */
-  .instagram-grid { 
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .instagram-embed { 
-    min-height: 360px; 
-    padding: 1rem; 
-  }
-
-  /* Dots canvas: a touch softer so text stays crisp on small screens */
-  /* #dots-bg { opacity: 0.35; }  you currently set 0.5 :contentReference[oaicite:2]{index=2} */
-}
-
-/* ===== Extra-small phones (≤420px) ===== */
-@media (max-width: 420px) {
-  html { font-size: 94%; }
-
-  .hero { min-height: 78svh; }
-
-  .banner-container { aspect-ratio: 16 / 9; }
-
-  .hero-subtitle {
-    font-size: 0.98rem;
-    max-width: 94%;
-  }
-
-  .section-title { font-size: 1.45rem; }
-
-  .event-card { padding: 1rem; }
-  .event-title { font-size: 1.15rem; }
-  .event-time  { font-size: 0.9rem;  }
-  .event-description { font-size: 0.95rem; }
-
-  .donation-btn { width: 100%; } /* easy tap with thumb */
-}
-
-
-/* === Mobile banner: show the entire image, no cropping or cut sides === */
-@media (max-width: 768px) {
-  /* Remove forced aspect ratio so height adapts to the image */
-  .banner-container {
-    width: 100%;
-    aspect-ratio: auto;          /* override any previous aspect-ratio */
-    margin-bottom: 1.25rem;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    background: radial-gradient(80% 60% at 50% 50%, rgba(0,0,0,0.35), transparent 70%);
-  }
-
-  /* Show full image; maintain intrinsic ratio; no cropping */
-  .banner-container img {
-    width: 100%;
-    height: auto;                /* was height:100% with object-fit:cover */
-    object-fit: contain;         /* ensure full artwork visible */
-    display: block;
-  }
-
-  /* Optional: gentle vignette to hide any empty bands gracefully */
-  .banner-container::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    box-shadow: inset 0 0 80px rgba(0,0,0,0.35);
-    border-radius: inherit;
-  }
-}
-
-/* Ultra-small phones—tighten spacing a touch more */
-@media (max-width: 420px) {
-  .banner-container { margin-bottom: 1rem; }
-}
-
-
-/* === Smaller Instagram embeds (desktop + mobile) === */
-
-/* General desktop/laptop: smaller cards and padding */
+/* --- INSTAGRAM --- */
 .instagram-grid {
-  gap: 1.5rem; /* was 2rem :contentReference[oaicite:0]{index=0} */
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* smaller cards */
-  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .instagram-embed {
-  background: rgba(139, 0, 0, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 1rem;                  /* tighter padding (was 1.5rem) :contentReference[oaicite:1]{index=1} */
-  min-height: 320px;              /* was 400px :contentReference[oaicite:2]{index=2} */
-  max-width: 340px;               /* new: limit width per card */
-  margin: 0 auto;                 /* center cards in grid */
+  background: rgba(0, 95, 115, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 1rem;
+  min-height: 320px;
+  display: flex;
+  justify-content: center;
   transition: all 0.3s ease;
 }
 
 .instagram-embed:hover {
-  transform: scale(1.03);
-  border-color: rgba(206, 17, 38, 0.4);
+  transform: scale(1.02);
+  border-color: rgba(10, 147, 150, 0.4);
 }
 
-/* Medium screens (≤1024px): two smaller columns */
-@media (max-width: 1024px) {
-  .instagram-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem;
-  }
-  .instagram-embed {
-    min-height: 280px;
-    max-width: 300px;
-  }
+/* --- CANVAS & UTILS --- */
+#dots-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;           
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.6;        
 }
 
-/* Mobile (≤768px): single-column smaller embeds */
+/* --- RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 768px) {
-  .instagram-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .instagram-embed {
-    min-height: 260px;  /* smaller still for mobile */
-    max-width: 100%;
-    padding: 0.75rem;
-  }
-}
-
-/* Donation */
-.donation-section {
-  background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(0, 122, 61, 0.3));
-  border-radius: 20px;
-  padding: 4rem 2rem;
-  text-align: center;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Leaderboard Embed */
-.leaderboard-container {
-  margin-top: 3rem;
-  width: 100%;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  background: rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.leaderboard-container iframe {
-  display: block;
-  width: 100%;
-  min-height: 600px;
-  border: none;
-}
-
-@media (max-width: 768px) {
-  .leaderboard-container {
-    margin-top: 2rem;
+  .msa-logo {
+    width: 80px;
+    top: 1rem;
+    left: 1rem;
   }
   
-  .leaderboard-container iframe {
-    min-height: 500px;
+  .banner-container {
+    width: 100%;
+    aspect-ratio: auto;
+    background: radial-gradient(80% 60% at 50% 50%, rgba(0,0,0,0.35), transparent 70%);
+  }
+  
+  .banner-container img {
+    height: auto;
+    object-fit: contain;
+  }
+
+  .event-grid, .instagram-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ocean-waves {
+    height: 10vh; /* Smaller waves on mobile */
   }
 }
