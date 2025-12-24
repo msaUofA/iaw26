@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Islam Awareness Week</title>
+  <link rel="icon" type="image/png" href="msauofa_pw2025.png" />
+  <link rel="apple-touch-icon" href="msauofa_pw2025.png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(180deg, #001a33 0%, #000a1a 100%);
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ocean wave canvas */
+    #ocean-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    /* Additional water effects overlay */
+    .water-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: 
+        linear-gradient(180deg, transparent 0%, rgba(0, 100, 150, 0.15) 50%, transparent 100%),
+        linear-gradient(90deg, transparent 0%, rgba(0, 150, 200, 0.1) 50%, transparent 100%);
+      animation: shimmer 8s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Caustic light patterns (like sunlight through water) */
+    .caustics {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background-image: 
+        radial-gradient(ellipse at 20% 30%, rgba(100, 200, 255, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 60%, rgba(0, 191, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 80%, rgba(100, 200, 255, 0.22) 0%, transparent 50%);
+      animation: caustic-drift 15s ease-in-out infinite;
+    }
+
+    @keyframes caustic-drift {
+      0%, 100% { 
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+      }
+      50% { 
+        transform: translate(30px, -20px) scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    /* MSA Logo */
+    .msa-logo {
+      position: fixed;
+      left: 2rem;
+      top: 2rem;
+      width: 150px;
+      height: auto;
+      z-index: 1000;
+      filter: drop-shadow(0 0 20px rgba(100, 200, 255, 0.5));
+      transition: all 0.3s ease;
+    }
+
+    .msa-logo:hover {
+      filter: drop-shadow(0 0 30px rgba(100, 200, 255, 0.8));
+      transform: scale(1.05);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 2rem;
+      z-index: 10;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(180deg, transparent, #000a1a);
+      pointer-events: none;
+    }
+
+    .banner-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1400px;
+      margin-bottom: 3rem;
+      animation: fadeInScale 1.2s ease-out;
+    }
+
+    @keyframes fadeInScale {
+      from { 
+        opacity: 0; 
+        transform: scale(0.95) translateY(20px);
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .banner-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 
+        0 20px 60px rgba(0, 150, 200, 0.4),
+        0 0 80px rgba(100, 200, 255, 0.3);
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #00bfff, #0080ff, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeIn 1s ease-out 0.3s forwards;
+      opacity: 0;
+      filter: drop-shadow(0 0 20px rgba(0, 191, 255, 0.3));
+    }
+
+    .hero-tagline {
+      font-size: 2rem;
+      text-align: center;
+      font-style: italic;
+      color: #87ceeb;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 0.6s forwards;
+    }
+
+    .hero-subtitle {
+      position: relative;
+      z-index: 10;
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 0.9s forwards;
+      color: #e0e0e0;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn { 
+      to { opacity: 1; } 
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeInBounce 1s ease-out 1.2s forwards;
+      z-index: 10;
+    }
+
+    @keyframes fadeInBounce {
+      to { opacity: 0.7; }
+    }
+
+    .scroll-indicator:hover {
+      opacity: 1;
+    }
+
+    .scroll-indicator span {
+      font-size: 2.5rem;
+      color: #00bfff;
+      animation: bounce 2s infinite;
+      display: block;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    /* Sections */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 1rem;
+      color: #00bfff;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #00bfff, #00ffff);
+      border-radius: 2px;
+    }
+
+    /* Event cards grid */
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .event-card {
+      background: linear-gradient(135deg, rgba(0, 50, 100, 0.4), rgba(0, 100, 150, 0.3));
+      border: 2px solid rgba(100, 200, 255, 0.3);
+      border-radius: 15px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 150, 200, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(100, 200, 255, 0.1) 50%,
+        transparent 70%
+      );
+      animation: wave-shimmer 6s linear infinite;
+    }
+
+    @keyframes wave-shimmer {
+      0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+      100% { transform: translateX(50%) translateY(50%) rotate(360deg); }
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 191, 255, 0.4);
+      border-color: rgba(0, 191, 255, 0.6);
+    }
+
+    .event-date {
+      font-size: 0.95rem;
+      color: #00ffff;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .event-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .event-time {
+      font-size: 0.9rem;
+      color: #87ceeb;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .event-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Donation Section */
+    .donation-section {
+      background: linear-gradient(135deg, rgba(0, 50, 100, 0.5), rgba(0, 100, 150, 0.4));
+      border-radius: 20px;
+      padding: 4rem 2rem;
+      text-align: center;
+      border: 2px solid rgba(100, 200, 255, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 150, 200, 0.3);
+    }
+
+    .donation-copy {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .donation-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .donation-btn {
+      background: linear-gradient(135deg, #0080ff, #00bfff);
+      color: white;
+      padding: 1.5rem 3rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 5px 15px rgba(0, 150, 200, 0.4);
+    }
+
+    .donation-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 191, 255, 0.6);
+      background: linear-gradient(135deg, #00bfff, #00ffff);
+    }
+
+    .donation-btn.secondary {
+      background: linear-gradient(135deg, #005580, #007ab8);
+      box-shadow: 0 5px 15px rgba(0, 100, 150, 0.4);
+    }
+
+    .donation-btn.secondary:hover {
+      background: linear-gradient(135deg, #007ab8, #00a0e0);
+      box-shadow: 0 10px 25px rgba(0, 150, 200, 0.6);
+    }
+
+    /* Instagram embeds */
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .instagram-embed {
+      background: rgba(0, 50, 100, 0.3);
+      border: 2px solid rgba(100, 200, 255, 0.2);
+      border-radius: 15px;
+      padding: 1rem;
+      min-height: 320px;
+      max-width: 340px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .instagram-embed:hover {
+      transform: scale(1.03);
+      border-color: rgba(0, 191, 255, 0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .msa-logo {
+        width: 80px;
+        top: 1rem;
+        left: 1rem;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-tagline {
+        font-size: 1.3rem;
+      }
+
+      .section-title { 
+        font-size: 2rem; 
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        padding: 0 1rem;
+      }
+
+      .event-grid, .instagram-grid { 
+        grid-template-columns: 1fr; 
+      }
+
+      .banner-container {
+        margin-bottom: 2rem;
+      }
+
+      .donation-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Ocean Canvas -->
+  <canvas id="ocean-canvas"></canvas>
+  
+  <!-- Water overlay effects -->
+  <div class="water-overlay"></div>
+  <div class="caustics"></div>
+
+  <!-- MSA Logo -->
+  <a href="https://msauofa.ca" target="_blank" rel="noopener noreferrer">
+    <img src="msauofa_pw2025.png" alt="MSA Logo" class="msa-logo">
+  </a>
+
+  <div class="hero">
+    <div class="banner-container">
+      <img src="Palestine Awareness Week Banner Fall 2025.png" alt="Islam Awareness Week Banner" id="bannerImage">
+    </div>
+    
+    <h1 class="hero-title">Islam Awareness Week</h1>
+    <p class="hero-tagline">"Glad tidings to the strangers"</p>
+    
+    <p class="hero-subtitle">
+      Join us for a week of discovery, understanding, and connection as we explore the beauty and depth of Islamic faith and culture.
+    </p>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+      <span>↓</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="donation-section">
+      <h2 class="section-title">Support Our Cause</h2>
+      <p class="donation-copy">
+        Your contributions help us create meaningful programs and events that educate and inspire our community.
+      </p>
+      <div class="donation-buttons">
+        <a href="#" class="donation-btn">Donate Now</a>
+      </div>
+    </div> 
+  </section> 
+
+  <section class="section">
+    <h2 class="section-title">Event Schedule</h2>
+
+    <div class="event-grid">
+      <!-- Sample Event 1 -->
+      <div class="event-card">
+        <div class="event-date">MONDAY, [DATE]</div>
+        <h3 class="event-title">Opening Ceremony</h3>
+        <div class="event-time">6:00 PM – 8:00 PM</div>
+        <p class="event-description">
+          Location: [TBA]<br/>
+          Join us for the official launch of Islam Awareness Week with an inspiring program.
+        </p>
+      </div>
+
+      <!-- Sample Event 2 -->
+      <div class="event-card">
+        <div class="event-date">TUESDAY, [DATE]</div>
+        <h3 class="event-title">Islamic Art & Calligraphy Workshop</h3>
+        <div class="event-time">4:00 PM – 6:00 PM</div>
+        <p class="event-description">
+          Location: [TBA]<br/>
+          Learn the beautiful art of Islamic calligraphy and create your own masterpiece.
+        </p>
+        <br/>
+        <p class="event-description">
+          <a class="donation-btn secondary" href="#">Register</a>
+        </p>
+      </div>
+
+      <!-- Sample Event 3 -->
+      <div class="event-card">
+        <div class="event-date">WEDNESDAY, [DATE]</div>
+        <h3 class="event-title">Islam & Science Panel Discussion</h3>
+        <div class="event-time">7:00 PM – 9:00 PM</div>
+        <p class="event-description">
+          Location: [TBA]<br/>
+          Explore the historical contributions of Islamic scholars to science and medicine.
+        </p>
+      </div>
+
+      <!-- Sample Event 4 -->
+      <div class="event-card">
+        <div class="event-date">THURSDAY, [DATE]</div>
+        <h3 class="event-title">Community Iftar</h3>
+        <div class="event-time">6:30 PM – 8:30 PM</div>
+        <p class="event-description">
+          Location: [TBA]<br/>
+          Share a meal and build connections with the community.
+        </p>
+      </div>
+
+      <!-- Sample Event 5 -->
+      <div class="event-card">
+        <div class="event-date">FRIDAY, [DATE]</div>
+        <h3 class="event-title">Charity Drive</h3>
+        <div class="event-time">12:00 PM – 4:00 PM</div>
+        <p class="event-description">
+          Location: [TBA]<br/>
+          Participate in our charity initiative to give back to those in need.
+        </p>
+        <br/>
+        <p class="event-description">
+          <a class="donation-btn secondary" href="#">Volunteer</a>
+        </p>
+      </div>
+
+      <!-- Sample Event 6 -->
+      <div class="event-card">
+        <div class="event-date">SATURDAY, [DATE]</div>
+        <h3 class="event-title">Closing Banquet</h3>
+        <div class="event-time">6:00 PM – 10:00 PM</div>
+        <p class="event-description">
+          Location: [TBA]<br/>
+          Celebrate the conclusion of Islam Awareness Week with a special dinner and keynote speaker.
+        </p>
+        <br/>
+        <p class="event-description">
+          <a class="donation-btn secondary" href="#">Get Tickets</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Stay Connected</h2>
+    <div class="instagram-grid">
+      <div class="instagram-embed">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/msauofa/" data-instgrm-version="14" style="background:#FFF; border:0; margin:1px; max-width:540px; width:calc(100% - 2px);">
+        </blockquote>
+      </div>
+
+      <div class="instagram-embed">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/msauofa/" data-instgrm-version="14" style="background:#FFF; border:0; margin:1px; max-width:540px; width:calc(100% - 2px);">
+        </blockquote>
+      </div>
+
+      <div class="instagram-embed">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/msauofa/" data-instgrm-version="14" style="background:#FFF; border:0; margin:1px; max-width:540px; width:calc(100% - 2px);">
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.addEventListener('load', () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    });
+
+    // Smooth scroll
+    document.getElementById('scrollIndicator')?.addEventListener('click', () => {
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
+    });
+
+    // Ocean wave simulation with realistic water physics
+    const canvas = document.getElementById('ocean-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let w, h;
+    const waves = [];
+    const numWaves = 7;
+    const foam = [];
+    
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    
+    window.addEventListener('resize', resize);
+    resize();
+    
+    // Create multiple wave layers with different properties
+    for (let i = 0; i < numWaves; i++) {
+      waves.push({
+        amplitude: 40 + i * 25,
+        frequency: 0.0015 - i * 0.00015,
+        speed: 0.03 + i * 0.01,
+        offset: (i * Math.PI) / 2.5,
+        y: h * 0.25 + i * 70,
+        opacity: 0.3 - i * 0.03,
+        color: i % 2 === 0 ? [0, 150, 200] : [0, 120, 180]
+      });
+    }
+    
+    let time = 0;
+    
+    function drawWave(wave, t) {
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      
+      const points = [];
+      
+      for (let x = 0; x <= w; x += 3) {
+        const y = wave.y + 
+          Math.sin(x * wave.frequency + t + wave.offset) * wave.amplitude +
+          Math.sin(x * wave.frequency * 2.3 + t * 1.8) * (wave.amplitude * 0.4) +
+          Math.sin(x * wave.frequency * 0.6 + t * 0.5) * (wave.amplitude * 0.6) +
+          Math.cos(x * wave.frequency * 1.2 + t * 1.2) * (wave.amplitude * 0.25);
+        
+        points.push({ x, y });
+        ctx.lineTo(x, y);
+      }
+      
+      ctx.lineTo(w, h);
+      ctx.closePath();
+      
+      const gradient = ctx.createLinearGradient(0, wave.y - 150, 0, h);
+      gradient.addColorStop(0, `rgba(${wave.color[0]}, ${wave.color[1]}, ${wave.color[2]}, ${wave.opacity})`);
+      gradient.addColorStop(0.3, `rgba(${wave.color[0] - 20}, ${wave.color[1] - 30}, ${wave.color[2] - 30}, ${wave.opacity * 0.9})`);
+      gradient.addColorStop(0.7, `rgba(0, 80, 120, ${wave.opacity * 0.7})`);
+      gradient.addColorStop(1, `rgba(0, 40, 80, ${wave.opacity * 0.4})`);
+      
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Draw wave crests with highlights
+      ctx.strokeStyle = `rgba(100, 220, 255, ${wave.opacity * 0.6})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      
+      points.forEach((point, i) => {
+        if (i === 0) {
+          ctx.moveTo(point.x, point.y);
+        } else {
+          ctx.lineTo(point.x, point.y);
+        }
+      });
+      ctx.stroke();
+      
+      return points;
+    }
+    
+    // Foam particle system
+    function createFoam(x, y, wave) {
+      if (Math.random() > 0.995) {
+        foam.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 2,
+          vy: -Math.random() * 3 - 1,
+          life: 1,
+          size: Math.random() * 4 + 2,
+          opacity: wave.opacity
+        });
+      }
+    }
+    
+    function updateFoam() {
+      for (let i = foam.length - 1; i >= 0; i--) {
+        const f = foam[i];
+        f.x += f.vx;
+        f.y += f.vy;
+        f.vy += 0.1; // gravity
+        f.life -= 0.02;
+        
+        if (f.life <= 0) {
+          foam.splice(i, 1);
+        } else {
+          ctx.fillStyle = `rgba(200, 240, 255, ${f.life * f.opacity * 0.8})`;
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.size * f.life, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+    
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      
+      time += 0.015;
+      
+      waves.forEach((wave, i) => {
+        const points = drawWave(wave, time * wave.speed);
+        
+        // Create foam on wave peaks
+        points.forEach((point, j) => {
+          if (j > 0 && j < points.length - 1) {
+            const prevY = points[j - 1].y;
+            const nextY = points[j + 1].y;
+            
+            // Detect peak (local maximum)
+            if (point.y < prevY && point.y < nextY && point.y < wave.y) {
+              createFoam(point.x, point.y, wave);
+            }
+          }
+        });
+      });
+      
+      updateFoam();
+      
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
+
+    // Intersection Observer for reveal-on-scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.event-card, .instagram-embed').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+
+  <!-- Instagram Embed Script -->
+  <script async src="https://www.instagram.com/embed.js"></script>
+</body>
+</html>
