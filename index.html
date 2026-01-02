@@ -5,9 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Islam Awareness Week | Glad Tidings</title>
   <link rel="icon" type="image/png" href="msauofa_iaw26_lowres.png" />
-  
-  <!-- External CSS Link -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- INLINE OVERRIDES -->
+  <style>
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+
+    .hero {
+      position: relative !important;
+      height: 100vh !important;
+      overflow: hidden !important;
+    }
+
+    #ocean-canvas,
+    #dots-bg {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      display: block !important;
+      pointer-events: none !important;
+    }
+
+    .ocean-waves {
+      position: absolute !important;
+      left: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: 140px !important;
+      display: block !important;
+    }
+
+    .caustics {
+      position: fixed !important;
+      inset: 0 !important;
+      pointer-events: none !important;
+    }
+  </style>
 </head>
 <body>
   <!-- Ocean wave canvas with physics -->
@@ -54,10 +93,6 @@
       <!-- Islam Awareness Week 2026 -->
     </p>
 
-    <div class="scroll-indicator" id="scrollIndicator">
-      <span>↓</span>
-    </div>
-
     <svg class="ocean-waves" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
       <defs>
         <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -71,138 +106,6 @@
     </svg>
   </div>
 
-  
-
-<section class="section">
-    <h2 class="section-title">Islam Awareness Week 2026</h2>
-
-    <div class="daily-schedule">
-      
-      <div class="day-column">
-        <h3 class="day-header">Monday <span class="day-date">Jan 19</span></h3>
-        
-        <div class="schedule-card">
-          <div class="card-time">11:00 AM — 3:00 PM</div>
-          <h4 class="card-title">Free Waffles + Dawah Table</h4>
-          <p class="card-loc">Location: CAB</p>
-        </div>
-
-        <div class="schedule-card">
-          <div class="card-time">4:30 PM — 6:30 PM</div>
-          <h4 class="card-title">Speaker: Tim Humble</h4>
-          <p class="card-loc">Location: ECHA</p>
-        </div>
-      </div>
-
-      <div class="day-column">
-        <h3 class="day-header">Tuesday <span class="day-date">Jan 20</span></h3>
-        
-        <div class="schedule-card">
-          <div class="card-time">7:00 AM — 9:00 AM</div>
-          <h4 class="card-title">Tim Humble: Fajr + Breakfast</h4>
-          <p class="card-loc">Location: HUB</p>
-        </div>
-
-        <div class="schedule-card">
-          <div class="card-time">9:00 AM — 10:00 AM</div>
-          <h4 class="card-title">Tim Humble: Brothers Q&A</h4>
-          <p class="card-loc">Location: HUB</p>
-        </div>
-
-        <div class="schedule-card">
-          <div class="card-time">10:00 AM — 11:00 AM</div>
-          <h4 class="card-title">Tim Humble: Sisters Q&A</h4>
-          <p class="card-loc">Location: HUB</p>
-        </div>
-
-        <div class="schedule-card">
-          <div class="card-time">11:00 AM — 3:00 PM</div>
-          <h4 class="card-title">Free Waffles + Dawah Table</h4>
-          <p class="card-loc">Location: CCIS</p>
-        </div>
-      </div>
-
-      <div class="day-column">
-        <h3 class="day-header">Wednesday <span class="day-date">Jan 21</span></h3>
-        
-        <div class="schedule-card">
-          <div class="card-time">5:00 PM — 7:30 PM</div>
-          <h4 class="card-title">Speaker: Ibn Bashiir</h4>
-          <p class="card-loc">Location: ECHA</p>
-        </div>
-      </div>
-
-      <div class="day-column">
-        <h3 class="day-header">Thursday <span class="day-date">Jan 22</span></h3>
-        
-        <div class="schedule-card">
-          <div class="card-time">11:00 AM — 3:00 PM</div>
-          <h4 class="card-title">Dawah Table + Hijab Booth</h4>
-          <p class="card-loc">Location: ECHA</p>
-        </div>
-
-        <div class="schedule-card">
-          <div class="card-time">5:00 PM — 8:00 PM</div>
-          <h4 class="card-title">Speaker: Muslim Money Guy</h4>
-          <p class="card-loc">Location: University Commons</p>
-        </div>
-      </div>
-
-      <div class="day-column">
-        <h3 class="day-header">Friday <span class="day-date">Jan 23</span></h3>
-        
-        <div class="schedule-card">
-          <div class="card-time">4:30 PM — 6:30 PM</div>
-          <h4 class="card-title">Speaker: Khalto Sama</h4>
-          <p class="card-loc">Location: ECHA</p>
-        </div>
-
-        <div class="schedule-card">
-          <div class="card-time">5:00 PM — 7:00 PM</div>
-          <h4 class="card-title">Speaker: Shaykh Zacharia</h4>
-          <p class="card-loc">Location: ECHA / Butterdome</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-
-
-  
-
-
-  <section class="section">
-    <h2 class="section-title">Stay Connected</h2>
-    <div class="instagram-grid">
-      <div class="instagram-embed">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DS-hZEcD1NG/" data-instgrm-version="14" style="background:#FFF; border:0; margin:1px; max-width:540px; width:calc(100% - 2px);">
-        </blockquote>
-      <!-- </div> -->
-      <!-- <div class="instagram-embed"> -->
-        <!-- <blockquote class="instagram-media" data-instgrm-permalink="#" data-instgrm-version="14" style="background:#FFF; border:0; margin:1px; max-width:540px; width:calc(100% - 2px);"> -->
-        <!-- </blockquote> -->
-      <!-- </div> -->
-    <!-- </div> -->
-  </section>
-
-
-<section class="section">
-    <div class="donation-section">
-      <h2 class="section-title">Support the MSA</h2>
-      <p class="donation-copy">
-        Your contributions help us organize events and spread awareness. 
-      </p>
-      <div class="donation-buttons">
-        <a href="" class="donation-btn">Donate Now</a>
-      </div>
-    </div> 
-  </section> 
-
-
-  <!-- External Script Link -->
-  <script src="script.js"></script>
-  <script async src="https://www.instagram.com/embed.js"></script>
+ <script src="script.js"></script>
 </body>
 </html>
