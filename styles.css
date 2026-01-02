@@ -253,7 +253,7 @@ body {
 /* --- SCROLL INDICATOR --- */
 .scroll-indicator {
   position: absolute;
-  bottom: clamp(1rem, 18vh, 4rem);
+  bottom: clamp(3rem, 25vh, 8rem);
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
