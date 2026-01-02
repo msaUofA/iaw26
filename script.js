@@ -242,3 +242,39 @@ function animateBubbles() {
 }
 
 animateBubbles();
+
+// Countdown Timer Logic
+function updateCountdown() {
+  // Target Date: Jan 5, 2026, 12:00:00 MST (GMT-0700)
+  const targetDate = new Date("2026-01-05T12:00:00-07:00").getTime();
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  if (distance < 0) {
+    // Optional: Handle what happens when timer ends
+    document.getElementById("countdown").innerHTML = "<div class='time-block'><span>EVENT STARTED</span></div>";
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Helper to add leading zero
+  const formatTime = (time) => time < 10 ? `0${time}` : time;
+
+  const dElem = document.getElementById("days");
+  const hElem = document.getElementById("hours");
+  const mElem = document.getElementById("minutes");
+  const sElem = document.getElementById("seconds");
+
+  if(dElem) dElem.innerText = formatTime(days);
+  if(hElem) hElem.innerText = formatTime(hours);
+  if(mElem) mElem.innerText = formatTime(minutes);
+  if(sElem) sElem.innerText = formatTime(seconds);
+}
+
+// Update immediately then every second
+updateCountdown();
+setInterval(updateCountdown, 1000);

@@ -162,21 +162,61 @@ body {
   position: relative;
   z-index: 10;
   width: min(100%, 1200px);
+  /* Changed aspect ratio to be more compact for text if needed, or keep same */
   aspect-ratio: 21 / 9;
   margin-bottom: 2rem;
-  border-radius: 12px;
-  box-shadow: 
-    0 20px 60px rgba(0, 95, 115, 0.4),
-    0 0 80px rgba(10, 147, 150, 0.2);
-  overflow: hidden;
   animation: fadeInScale 1.2s ease-out;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.banner-container img {
+/* Removed img style as it is no longer used
+.banner-container img { ... } 
+*/
+
+.countdown-wrapper {
+  display: flex;
+  gap: clamp(1rem, 4vw, 4rem);
+  text-align: center;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+}
+
+.time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.time-block span:first-child {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  color: var(--foam);
+  text-shadow: 0 0 20px rgba(10, 147, 150, 0.8);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-block .label {
+  font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+  color: var(--shallow-water);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 0.5rem;
+}
+
+/* Add separator dots between blocks on larger screens */
+.time-block:not(:last-child)::after {
+  content: ':';
+  position: absolute;
+  right: clamp(-1rem, -2vw, -2rem);
+  top: 5%;
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--mid-ocean);
+  opacity: 0.5;
 }
 
 @keyframes fadeInScale {
@@ -452,12 +492,18 @@ body {
   
   .banner-container {
     width: 100%;
-    aspect-ratio: auto;
+    aspect-ratio: auto; /* Allow height to adjust */
+    padding: 3rem 1rem;
   }
-  
-  .banner-container img {
-    height: auto;
-    object-fit: contain;
+
+  /* Remove separators on mobile to prevent clutter */
+  .time-block:not(:last-child)::after {
+    content: none;
+  }
+
+  .countdown-wrapper {
+    gap: 1.5rem;
+    flex-wrap: wrap; 
   }
 
   .hero-subtitle {
