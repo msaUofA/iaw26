@@ -252,7 +252,7 @@ function updateCountdown() {
 
   if (distance < 0) {
     // Optional: Handle what happens when timer ends
-    document.getElementById("countdown").innerHTML = "<div class='time-block'><span>EVENT STARTED</span></div>";
+    document.getElementById("countdown").innerHTML = "<div class='time-block'><span>🤫</span></div>";
     return;
   }
 
