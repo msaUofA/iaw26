@@ -246,7 +246,7 @@ animateBubbles();
 // Countdown Timer Logic
 function updateCountdown() {
   // Target Date: Jan 5, 2026, 12:00:00 MST (GMT-0700)
-  const targetDate = new Date("2026-01-05T12:00:00-07:00").getTime();
+  const targetDate = new Date("2026-01-06T17:00:00-07:00").getTime();
   const now = new Date().getTime();
   const distance = targetDate - now;
 
