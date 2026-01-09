@@ -634,3 +634,30 @@ body {
     border-radius: 18px;
     box-shadow: 0 30px 80px rgba(0,0,0,0.45);
   }
+
+  /* Add this to styles.css */
+
+.register-btn {
+  display: inline-block;
+  margin-top: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  background: linear-gradient(135deg, var(--shallow-water), var(--mid-ocean));
+  color: var(--foam);
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(224, 251, 252, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, var(--mid-ocean), var(--shallow-water));
+  box-shadow: 0 6px 15px rgba(10, 147, 150, 0.4);
+  color: #ffffff;
+  border-color: rgba(224, 251, 252, 0.5);
+}
