@@ -280,7 +280,7 @@ body {
 /* --- SECTIONS --- */
 .section {
   padding: clamp(2.5rem, 4vw + 1rem, 5rem) clamp(1rem, 3vw, 2rem);
-  max-width: min(1100px, 92vw);
+  max-width: min(1400px, 92vw);
   margin: 0 auto;
   position: relative;
   z-index: 10;
