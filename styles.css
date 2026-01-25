@@ -676,4 +676,4 @@ body {
   border-color: rgba(224, 251, 252, 0.5);
 }
 
-.donation-copy { font-size: 1.2rem; margin-bottom: 2rem; max-width: 700px; margin: 0 auto 2rem; line-height: 1.6; } .donation-copy img { width: 100%; max-width: 600px; height: auto; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); margin: 0 auto; display: block; }
+.donation-copy { font-size: 1.2rem; margin-bottom: 2rem; max-width: 700px; margin: 0 auto 2rem; line-height: 1.6; } .donation-copy img { width: 100%; max-width: 600px; height: auto; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); margin: 0 auto 2rem auto; display: block; } .donation-copy img:last-child { margin-bottom: 0; }
